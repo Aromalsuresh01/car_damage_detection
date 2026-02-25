@@ -1,0 +1,25 @@
+# data.yaml for YOLOv8 training
+# Defines dataset locations and class names using relative paths.
+# Paths are relative to the project root so they work on any machine
+# without modification.
+
+# Location of training images
+train: dataset/train/images
+
+# Location of validation images. YOLOv8 uses this for evaluation during training.
+val: dataset/valid/images
+
+# (Optional) location of test images for final model evaluation.
+test: dataset/test/images
+
+# Number of classes. This must match the length of the "names" list below.
+nc: 4
+
+# Class names in the order they are encoded in the label files.
+# The index of each name corresponds to the integer used in the
+# YOLO-formatted .txt label files (e.g. 0=scratch, 1=dent, ...).
+names:
+  0: scratch          # Small surface scratches on the vehicle
+  1: dent             # Indentations or deformations in the bodywork
+  2: broken_glass     # Cracked or shattered windows/heads
+  3: bumper_damage    # Damage to front/rear bumpers or covers

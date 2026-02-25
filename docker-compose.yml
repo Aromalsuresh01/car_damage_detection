@@ -1,0 +1,90 @@
+# Docker Compose Configuration for Car Damage Detection
+#
+# This file defines the containerized application for easy deployment.
+# No need to write long docker commands - just use docker-compose up
+#
+# Usage:
+#   docker-compose up                    # Start container
+#   docker-compose down                  # Stop and remove container
+#   docker-compose logs -f               # View logs in real-time
+#   docker-compose up -d                 # Start in background
+#
+
+version: '3.8'
+
+services:
+  # Streamlit web application service
+  app:
+    # Build image from local Dockerfile
+    build:
+      context: .
+      dockerfile: Dockerfile
+    
+    # Container name for easy reference
+    container_name: car-damage-detection
+    
+    # Port mapping: host:container
+    # Access app at http://localhost:8501
+    ports:
+      - "8501:8501"
+    
+    # Volume mounts for persistent data
+    volumes:
+      # Mount dataset directory (read-only to prevent accidental modification)
+      # Host path must be absolute or relative to docker-compose.yml location
+      - ./dataset:/app/dataset:ro
+      
+      # Mount runs directory for saving training/inference outputs
+      # This persists results outside the container
+      - ./runs:/app/runs
+      
+      # Optional: Mount custom models
+      # - ./models:/app/models
+    
+    # Environment variables passed to container
+    environment:
+      # Streamlit settings
+      STREAMLIT_SERVER_PORT: "8501"
+      STREAMLIT_SERVER_HEADLESS: "true"
+      
+      # Python settings
+      PYTHONUNBUFFERED: "1"
+      
+      # Optional: GPU settings
+      # CUDA_VISIBLE_DEVICES: "0"  # Use first GPU (if available)
+    
+    # Restart policy: always restart container if it crashes
+    restart: unless-stopped
+    
+    # Health check
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8501/healthz"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    
+    # GPU support (uncomment if GPU is available)
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
+    
+    # Logging configuration
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+# Optional: Named volume for persistent model storage
+# volumes:
+#   model_cache:
+
+# Networks (default bridge network is automatically created)
+# networks:
+#   default:
+#     name: car-damage-detection-network

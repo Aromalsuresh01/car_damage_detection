@@ -1,0 +1,52 @@
+# Production Dependencies for Car Damage Detection System
+# 
+# This file lists all Python packages required to run the car damage detection
+# system. Install with: pip install -r requirements.txt
+#
+
+# Ultralytics YOLOv8 - Object detection framework
+# - Core computer vision model (YOLOv8n for damage detection)
+# - Provides training, inference, and utility functions
+# - Official implementation from Ultralytics
+ultralytics>=8.0.0
+
+# Streamlit - Web application framework
+# - Create interactive web UI without HTML/CSS/JavaScript
+# - File upload widget, image display, real-time updates
+# - Auto-server, no Flask/Django boilerplate needed
+streamlit>=1.28.0
+
+# PyTorch - Deep learning framework
+# - Tensor computation and autograd (automatic differentiation)
+# - GPU acceleration via CUDA (if available)
+# - Foundation for YOLOv8 model implementation
+torch>=2.0.0
+
+# TorchVision - Computer vision utilities for PyTorch
+# - Image transformation and preprocessing
+# - Data loading utilities for vision tasks
+# - Already included as dependency of ultralytics/torch
+torchvision>=0.15.0
+
+# OpenCV - Image and video processing
+# - Read/write images and videos
+# - Image resizing, color space conversion
+# - Video frame extraction and annotation
+opencv-python>=4.8.0
+
+# NumPy - Numerical computing
+# - Array operations and matrix math
+# - Already included as dependency of torch/opencv
+numpy>=1.24.0
+
+# Pillow - Python Imaging Library
+# - Image file I/O (PNG, JPG, etc.)
+# - Image manipulation (resize, crop, rotate)
+# - Already included as dependency of torchvision
+pillow>=9.5.0
+
+# Optional: For development and testing
+# pytest>=7.4.0          # Unit testing framework
+# jupyter>=1.0.0         # Interactive notebooks
+# tensorboard>=2.13.0    # Training visualization
+

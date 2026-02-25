@@ -1,0 +1,38 @@
+# Docker build context exclusions
+# These files/folders won't be sent to Docker daemon, speeding up builds
+
+# Dataset images (large, not needed in container - data should be mounted or pre-downloaded)
+dataset/
+
+# YOLOv8 training outputs (generated, not needed as base image)
+runs/
+
+# Python cache and environment
+__pycache__/
+.venv/
+venv/
+*.pyc
+*.pyo
+*.egg-info/
+
+# Version control
+.git/
+.gitignore
+
+# IDE and editor
+.vscode/
+.idea/
+*.swp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Documentation (not needed in container, but could include if desired)
+# *.md
+# docs/
+
+# Development files
+*.log
+.pytest_cache/
+.coverage
